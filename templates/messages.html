@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Messages</h1>
+    <table>
+        <thead>
+            <th>name</th>
+            <th>email</th>
+            <th>message</th>
+            <th>action</th>
+        </thead>
+        {% for x in messages %}
+        <tr>
+            <td>{{x[1]}}</td>
+            <td>{{x[2]}}</td>
+            <td>{{x[3]}}</td>
+            <td>
+                <form action="/delete/{{x[0]}}" style="display: inline;" method="POST" onsubmit='return confirm("are you sure you want to delete this message")'>
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/">Back to home</a>
+    <form action="/delete_all" method="POST" onsubmit='return confirm("are you sure you want to delete all messages")'>
+        <button type="submit">Delete All Messages</button>
+    </form>
+</body>
+</html>
